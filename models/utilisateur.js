@@ -17,7 +17,7 @@ const userSchema = new Schema({
   address: String,
   country: String, 
   birthDate: Date,
-  image:String, 
+  image:String,
   passportNumber: String,
 }, { timestamps: true });
 

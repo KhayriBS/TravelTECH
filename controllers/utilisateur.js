@@ -8,6 +8,12 @@ export async function addUser(req, res) {
     }
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        let image = '';
+        if (req.file) {
+            image = `${req.protocol}://${req.get('host')}/img/${req.file.filename}`;
+        } else {
+            image = '../public/images/avatar.jpg';
+        }
         const newUser = await user.create({
             username: req.body.username,
             email: req.body.email,
@@ -22,11 +28,12 @@ export async function addUser(req, res) {
             phone: req.body.phone,
             address: req.body.address,
             birthDate: req.body.birthDate,
-           /* image: `${req.protocol}://${req.get('host')}/img/${req.file.filename}`,*/
+            image: image,
             passportNumber: req.body.passportNumber, 
         });
 
         res.status(201).json({ message: "Add user with success", newUser: newUser });
+        console.log("add user with succes")
     } catch (err) {
         res.status(500).json(err);
     }

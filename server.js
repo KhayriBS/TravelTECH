@@ -3,8 +3,7 @@ import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
 import userRouter from './routes/utilisateur.js'
-
-
+import { errorHandler, notFoundError } from './middlewares/errorhandler.js'
 const app = express()
 const hostname ="127.0.0.1"
 const port=process.env.PORT || 9090
@@ -19,10 +18,13 @@ mongoose.connect(`${db_url}/${databasename}`)
 })
 
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 app.use(morgan('dev'))
 app.use(cors())
+app.use('/img',express.static('public/images'));
 app.use('/user',userRouter)
-
+app.use(notFoundError)
+app.use(errorHandler)
 app.listen(port,hostname,()=>{
     console.log(`server running http://${hostname}:${port} `)
 }
