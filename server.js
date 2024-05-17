@@ -2,6 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
+import userRouter from './routes/utilisateur.js'
+
 
 const app = express()
 const hostname ="127.0.0.1"
@@ -19,7 +21,7 @@ mongoose.connect(`${db_url}/${databasename}`)
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
-
+app.use('/user',userRouter)
 
 app.listen(port,hostname,()=>{
     console.log(`server running http://${hostname}:${port} `)
