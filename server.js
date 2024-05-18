@@ -2,6 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
+import offreRouter from './routes/offres.js'
+import locationRouter from './routes/location.js'
 
 const app = express()
 const hostname ="127.0.0.1"
@@ -19,6 +21,14 @@ mongoose.connect(`${db_url}/${databasename}`)
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
+// Utilisation des routeurs
+app.use('/offre', offreRouter); // Monter le routeur Offre sur /offre
+app.use('/location', locationRouter); // Monter le routeur Location sur /location
+
+
+
+
+
 
 
 app.listen(port,hostname,()=>{
