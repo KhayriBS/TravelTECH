@@ -25,12 +25,6 @@ app.use(cors())
 app.use('/offre', offreRouter); // Monter le routeur Offre sur /offre
 app.use('/location', locationRouter); // Monter le routeur Location sur /location
 
-
-
-
-
-
-
 app.listen(port,hostname,()=>{
     console.log(`server running http://${hostname}:${port} `)
 }
