@@ -1,11 +1,14 @@
-import user from "../models/utilisateur.js";
+import User from '../models/utilisateur.js';
 import bcrypt from 'bcrypt';
-import { validationResult } from "express-validator";
+import { validationResult } from 'express-validator';
+import { sendWelcomeEmail } from '../middlewares/sendEmail.js';
+
 export async function addUser(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ error: errors.array });
+        return res.status(400).json({ errors: errors.array() });
     }
+
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         let image = '';
@@ -14,11 +17,12 @@ export async function addUser(req, res) {
         } else {
             image = '../public/images/avatar.jpg';
         }
-        const newUser = await user.create({
+
+        const newUser = await User.create({
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
-            role:req.body.role,
+            role: req.body.role,
             country: req.body.country, 
             specialization: req.body.specialization,
             rating: req.body.rating,
@@ -31,11 +35,11 @@ export async function addUser(req, res) {
             image: image,
             passportNumber: req.body.passportNumber, 
         });
-
-        res.status(201).json({ message: "Add user with success", newUser: newUser });
-        console.log("add user with succes")
+        await sendWelcomeEmail(newUser.email);
+        res.status(201).json({ message: "User added successfully", newUser });
+        console.log("User added successfully");
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ error: 'Error adding user', details: err });
     }
 }
 
