@@ -1,8 +1,11 @@
-
 import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
+import produitRoutes from './routes/produit.js'
+import categorieRoutes from './routes/categorie.js'
+import { notFoundError, errorHandler } from './middlewares/errorHandler.js'
+//import multer from 'multer'
 import offreRouter from './routes/offres.js'
 import locationRouter from './routes/location.js'
 import eventRoutes from './routes/evenement.js'
@@ -24,25 +27,21 @@ mongoose.connect(`${db_url}/${databasename}`)
 .catch((err)=> {
     console.log(`failed ${err}`)
 })
-
-app.use(express.json())
-app.use(morgan('dev'))
-app.use(cors())
-// Utilisation des routeurs
-app.use('/offre', offreRouter); // Monter le routeur Offre sur /offre
-app.use('/location', locationRouter); // Monter le routeur Location sur /location
-
-app.use(express.json())
-app.use(morgan('dev'))
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
-
-
-
+app.use('/img', express.static('public/images'));
+app.use(express.urlencoded({ extended: true}));
+app.use('/produits', produitRoutes);
+app.use('/categories', categorieRoutes);
+// Utilisation des routeurs
+app.use('/offre', offreRouter); // Monter le routeur Offre sur /offre
+app.use('/location', locationRouter); // Monter le routeur Location sur /location
 app.use('/evenement', eventRoutes)
 app.use('/reservation', reservationRoutes)
 
+app.use(notFoundError);
+app.use(errorHandler);
 
 app.listen(port,hostname,()=>{
     console.log(`server running http://${hostname}:${port} `)
