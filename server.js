@@ -1,3 +1,4 @@
+
 import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
@@ -9,6 +10,10 @@ const app = express()
 const hostname ="127.0.0.1"
 const port=process.env.PORT || 9090
 const databasename ="traveltech" 
+
+mongoose.set('debug',true);
+mongoose.Promise = global.Promise;
+
 const db_url =process.env.DB_URL ||"mongodb://127.0.0.1:27017"
 mongoose.connect(`${db_url}/${databasename}`)
 .then(()=>{
@@ -18,16 +23,22 @@ mongoose.connect(`${db_url}/${databasename}`)
     console.log(`failed ${err}`)
 })
 
+
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
-app.use(express.urlencoded({ extended: true}));
-app.use('/img' , express.static('public/images'));
+
+app.use(express.json());
+app.use(morgan('dev'));
+app.use(cors());
+
 
 
 app.use('/evenement', eventRoutes)
 app.use('/reservation', reservationRoutes)
 
+app.use(notFoundError);
+app.use(errorHandler);
 
 app.listen(port,hostname,()=>{
     console.log(`server running http://${hostname}:${port} `)
