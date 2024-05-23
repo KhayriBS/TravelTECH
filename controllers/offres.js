@@ -77,3 +77,37 @@ export function getAllOffres(req, res) {
             res.status(500).json({ error: err.message });
         });
 }
+
+// Rechercher des offres par type
+export function getOffresByType(req, res) {
+    const { type } = req.params;
+    Offre.find({ type_offre: type })
+        .then(offres => {
+            res.json(offres);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+}
+
+// Filtrer des offres par plage de prix
+export function getOffresByPriceRange(req, res) {
+    const { minPrice, maxPrice } = req.query;
+    Offre.find({ prix: { $gte: minPrice, $lte: maxPrice } })
+        .then(offres => {
+            res.json(offres);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+}
+// Compter les offres disponibles
+export function countAvailableOffres(req, res) {
+    Offre.countDocuments({ disponibilite: 'Disponible' })
+        .then(count => {
+            res.json({ count });
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+}

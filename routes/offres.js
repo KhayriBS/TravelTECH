@@ -1,6 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { addOffre, getOffre, updateOffre, deleteOffre , getAllOffres } from '../controllers/offres.js';
+import { addOffre, getOffre, updateOffre, deleteOffre , getAllOffres,getOffresByType ,getOffresByPriceRange,countAvailableOffres } from '../controllers/offres.js';
 
 const router = express.Router();
 const typeOffreValues = ['Maison dhote', 'Villa', 'Appartement', 'Hotels', 'voitures', 'bateaux', 'Quad'];
@@ -48,4 +48,12 @@ router.put('/updateoffre/:id', [
 // Route pour supprimer une offre par son ID
 router.delete('/deleteoffre/:id', deleteOffre);
 router.get('/listeoffe/',getAllOffres)
+// Route pour rechercher des offres par type
+router.get('/typeoffre/:type', getOffresByType);
+// Route pour filtrer des offres par plage de prix
+router.get('/offreprice', getOffresByPriceRange);
+
+// Route pour compter les offres disponibles
+router.get('/offrecount/available', countAvailableOffres);
+
 export default router;
