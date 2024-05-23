@@ -1,9 +1,12 @@
+
 import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
 import offreRouter from './routes/offres.js'
 import locationRouter from './routes/location.js'
+import eventRoutes from './routes/evenement.js'
+import reservationRoutes from './routes/reservation.js'
 
 const app = express()
 const hostname ="127.0.0.1"
@@ -28,6 +31,17 @@ app.use(cors())
 // Utilisation des routeurs
 app.use('/offre', offreRouter); // Monter le routeur Offre sur /offre
 app.use('/location', locationRouter); // Monter le routeur Location sur /location
+
+app.use(express.json())
+app.use(morgan('dev'))
+app.use(express.json());
+app.use(morgan('dev'));
+app.use(cors());
+
+
+
+app.use('/evenement', eventRoutes)
+app.use('/reservation', reservationRoutes)
 
 
 app.listen(port,hostname,()=>{
