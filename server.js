@@ -3,6 +3,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
+import offreRouter from './routes/offres.js'
+import locationRouter from './routes/location.js'
 import eventRoutes from './routes/evenement.js'
 import reservationRoutes from './routes/reservation.js'
 
@@ -23,11 +25,15 @@ mongoose.connect(`${db_url}/${databasename}`)
     console.log(`failed ${err}`)
 })
 
-
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
+// Utilisation des routeurs
+app.use('/offre', offreRouter); // Monter le routeur Offre sur /offre
+app.use('/location', locationRouter); // Monter le routeur Location sur /location
 
+app.use(express.json())
+app.use(morgan('dev'))
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
@@ -37,8 +43,6 @@ app.use(cors());
 app.use('/evenement', eventRoutes)
 app.use('/reservation', reservationRoutes)
 
-app.use(notFoundError);
-app.use(errorHandler);
 
 app.listen(port,hostname,()=>{
     console.log(`server running http://${hostname}:${port} `)
