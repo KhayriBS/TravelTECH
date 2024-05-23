@@ -2,6 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
 import cors from 'cors'
+import eventRoutes from './routes/evenement.js'
+import reservationRoutes from './routes/reservation.js'
 
 const app = express()
 const hostname ="127.0.0.1"
@@ -19,6 +21,12 @@ mongoose.connect(`${db_url}/${databasename}`)
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
+app.use(express.urlencoded({ extended: true}));
+app.use('/img' , express.static('public/images'));
+
+
+app.use('/evenement', eventRoutes)
+app.use('/reservation', reservationRoutes)
 
 
 app.listen(port,hostname,()=>{
