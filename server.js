@@ -1,12 +1,10 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import morgan from 'morgan';
-import cors from 'cors';
 
-import programmeRoutes from './routes/programme.js';
-import activiteRoutes from './routes/activite.js';
-import { notFoundError, errorHandler } from './middlewares/errorhandler.js';
-
+import express from 'express'
+import mongoose from 'mongoose'
+import morgan from 'morgan'
+import cors from 'cors'
+import eventRoutes from './routes/evenement.js'
+import reservationRoutes from './routes/reservation.js'
 
 const app = express()
 const hostname ="127.0.0.1"
@@ -25,16 +23,19 @@ mongoose.connect(`${db_url}/${databasename}`)
     console.log(`failed ${err}`)
 })
 
+
+app.use(express.json())
+app.use(morgan('dev'))
+app.use(cors())
+
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
-app.use(express.urlencoded({ extended: true}));
-app.use('/img' , express.static('public/images'));
 
 
-app.use('/programme', programmeRoutes);
-app.use('/activite', activiteRoutes);
 
+app.use('/evenement', eventRoutes)
+app.use('/reservation', reservationRoutes)
 
 app.use(notFoundError);
 app.use(errorHandler);
