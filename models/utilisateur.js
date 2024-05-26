@@ -5,7 +5,9 @@ const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  role: { type: String, enum: ['admin', 'guide', 'client'] },
+  role: { type: String, enum: ['admin', 'guide', 'client'],required:true },
+  isActivated:{type: Boolean, default:false},
+  isBanned:{type: Boolean, default:false},
   // guide :
   specialization: String,
   rating: Number,
@@ -19,6 +21,7 @@ const userSchema = new Schema({
   birthDate: Date,
   image:String,
   passportNumber: String,
+  token:String
 }, { timestamps: true });
 
 export default model("user", userSchema);
