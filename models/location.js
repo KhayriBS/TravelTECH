@@ -27,7 +27,7 @@ const location = new Schema(
            type : Number,
            required : true
         },
-        largitude : {
+        latitude : {
             type : Number,
             required : true 
         },

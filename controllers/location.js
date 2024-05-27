@@ -14,7 +14,7 @@ export function addLocation(req, res) {
             prix: req.body.prix,
             emplacement: req.body.emplacement,
             Longitude: req.body.Longitude,
-            largitude: req.body.largitude,
+            latitude: req.body.latitude,
             etat: req.body.etat
         })
         .then(newLocation => {
@@ -111,7 +111,7 @@ export function getLocationsNearby(req, res) {
     const radiusInMeters = radius * 1000;
 
     Location.find({
-        largitude: {
+        latitude: {
             $gte: parseFloat(latitude) - radiusInMeters,
             $lte: parseFloat(latitude) + radiusInMeters
         },
@@ -126,4 +126,15 @@ export function getLocationsNearby(req, res) {
     .catch(err => {
         res.status(500).json({ error: err.message });
     });
+}
+
+// Fonction pour obtenir les titres et les prix des offres
+export function getOffresTitlesAndPrices(req, res) {
+    Offre.find({}, 'titre prix')
+        .then(offres => {
+            res.status(200).json(offres);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
 }

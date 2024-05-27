@@ -1,6 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { addOffre, getOffre, updateOffre, deleteOffre , getAllOffres,getOffresByType ,getOffresByPriceRange,countAvailableOffres } from '../controllers/offres.js';
+import { addOffre, getOffre, updateOffre, deleteOffre , getAllOffres,getOffresByType ,getOffresByPriceRange,countAvailableOffres,getOffresTitlesAndPrices } from '../controllers/offres.js';
 
 const router = express.Router();
 const typeOffreValues = ['Maison dhote', 'Villa', 'Appartement', 'Hotels', 'voitures', 'bateaux', 'Quad'];
@@ -55,5 +55,7 @@ router.get('/offreprice', getOffresByPriceRange);
 
 // Route pour compter les offres disponibles
 router.get('/offrecount/available', countAvailableOffres);
+//Route pour extraire le titre de l'offre et le prix pour avoir de statistique 
+router.get('/titles-prices', getOffresTitlesAndPrices);
 
 export default router;

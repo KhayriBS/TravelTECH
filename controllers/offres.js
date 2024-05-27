@@ -111,3 +111,15 @@ export function countAvailableOffres(req, res) {
             res.status(500).json({ error: err.message });
         });
 }
+
+
+// Fonction pour obtenir les titres et les prix des offres
+export function getOffresTitlesAndPrices(req, res) {
+    Offre.find({}, 'titre prix -_id')  
+        .then(offres => {
+            res.status(200).json(offres);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+}

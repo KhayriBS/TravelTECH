@@ -1,6 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { addLocation, getLocation, getAllLocations, updateLocation, deleteLocation , getLocationsByPriceRange ,getLocationsNearby } from '../controllers/locations.js';
+import { addLocation, getLocation, getAllLocations, updateLocation, deleteLocation , getLocationsByPriceRange ,getLocationsNearby } from '../controllers/location.js';
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.post('/addlocation', [
     body('prix'),
     body('emplacement'),
     body('Longitude'),
-    body('largitude'),
+    body('latitude'),
     body('etat')
 ], addLocation);
 
@@ -30,7 +30,7 @@ router.put('/modifierlocation/:id', [
     body('prix'),
     body('emplacement'),
     body('Longitude'),
-    body('largitude'),
+    body('latitude'),
     body('etat')
 ], updateLocation);
 
