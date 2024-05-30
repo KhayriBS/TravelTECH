@@ -219,3 +219,6 @@ export function searchUserByRole(req, res) {
             res.status(500).json({error: err});
         });
 }
+
+// ajouter une fonction pour update password and role pour la partie athentification par facebook
+// supprimer la fonction deleteBanUser (remplacer par update is archived)

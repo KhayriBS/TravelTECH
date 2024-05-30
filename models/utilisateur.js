@@ -6,8 +6,8 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   role: { type: String, enum: ['admin', 'guide', 'client'],required:true },
-  isActivated:{type: Boolean, default:false},
-  isBanned:{type: Boolean, default:false},
+  isActivated: { type: Boolean, default: false },
+  isBanned: { type: Boolean, default: false },
   // guide :
   specialization: String,
   rating: Number,
@@ -17,11 +17,21 @@ const userSchema = new Schema({
   last_name: String,
   phone: String,
   address: String,
-  country: String, 
+  country: String,
   birthDate: Date,
-  image:String,
+  image: String,
   passportNumber: String,
-  token:String
+  token: String,
+  // facebook login
+  facebookId: { type: String, unique: true },
+  name: { type: String },
+  emailFb: { type: String },
+  providers: {
+    facebook: {
+      id: String,
+      access_token: String,
+      display_name: String,
+    }
+  }
 }, { timestamps: true });
-
 export default model("user", userSchema);
