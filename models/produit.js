@@ -39,7 +39,13 @@ const produitSchema = Schema({
         type: Boolean,
         required : true
 
+    },
+
+    categorie: {
+        type: Schema.Types.ObjectId,
+        ref: 'Categorie'
     }
+
 
 },{timestamp : true})
 
