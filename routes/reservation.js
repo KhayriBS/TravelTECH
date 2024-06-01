@@ -1,6 +1,6 @@
 import express from 'express';
 import { body, param } from 'express-validator';
-import { addReservation, getReservations, getReservationById, updateReservation, deleteReservation } from '../controllers/reservation.js';
+import { addReservation, getReservations, getReservationById, updateReservation, deleteReservation, getReservationByEvent} from '../controllers/reservation.js';
 
 const router = express.Router();
 
@@ -38,6 +38,12 @@ router.route('/:id')
   .delete(
     param('id').isMongoId(),
     deleteReservation
+  );
+//
+router.route('/reservations/event/:eventId')
+  .get(
+    param('eventId').isMongoId(),
+    getReservationByEvent
   );
 
 export default router;
