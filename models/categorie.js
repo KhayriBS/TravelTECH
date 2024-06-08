@@ -21,7 +21,7 @@ const categorieSchema = Schema({
     statusC:{
         type:Boolean,
         required : true
-    } ,
+    } 
 
 
 },{timestamp : true})

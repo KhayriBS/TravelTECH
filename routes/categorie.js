@@ -6,11 +6,13 @@ import {addCategorie, getCategorie,getAllCategorie,UpdateCategorie,deleteCategor
 const router = express.Router()
 
 router
-    .route('/')
+    .route('/AjouterCategorie')
     .post(
         body('nomC').isLength({ min : 5, max : 20}),
         body('descriptionC').isLength({ min : 15, max :100}),
         body('nbrProduit').isLength({ min : 1, max :100}),
+        body('statusC').isLength({ min : 1, max :100}),
+
         
         addCategorie)
 
