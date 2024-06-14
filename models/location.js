@@ -19,6 +19,18 @@ const location = new Schema(
             type: Number,
             required: true
         },
+        emplacement :{
+            type : String,
+            required: true
+        },
+        Longitude : {
+           type : Number,
+           required : true
+        },
+        latitude : {
+            type : Number,
+            required : true 
+        },
         etat: {
             type: String,
             required: true

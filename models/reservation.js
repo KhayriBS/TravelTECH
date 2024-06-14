@@ -18,6 +18,11 @@ const reservationSchema = new Schema(
         nbPers: {
             type: Number,
             //required: true
+        },
+        event: {
+            type: Schema.Types.ObjectId,
+            ref: 'evenement',
+            required: true
         }
     },
     {

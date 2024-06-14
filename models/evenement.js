@@ -30,7 +30,28 @@ const eventSchema = new Schema(
         nbInvit: {
             type: Number,
             required: true
-        }
+        },
+        archive: {
+            type: Boolean,
+            default: false
+        },
+        favoris: {
+            type: [Schema.Types.ObjectId],
+            ref: 'User',
+            default: []
+        },
+        reservations: [{
+            userId: {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+                required: true
+            },
+            reservationId: {
+                type: Schema.Types.ObjectId,
+                ref: 'Reservation',
+                required: true
+            }
+        }]
     },
     {
         timestamps: true

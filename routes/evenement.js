@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, param } from 'express-validator';
-import { addEvent, getEventByTitre, updateEvent, deleteEvent } from '../controllers/evenement.js';
+import { addEvent, getEventByTitre, updateEvent, deleteEvent ,  getEventsBetweenDates , countEvents,
+    getRecentEvents, getTodayEvents, archiveExpiredEvents, getArchivedEvents, toggleFavoris, getReservationsByEvent, addReservationToEvent } from '../controllers/evenement.js';
 import multer from '../middlewares/multer-config.js';
 const router = express.Router();
 
@@ -42,5 +43,59 @@ router.route('/:id')
         param('id').isMongoId(),
         deleteEvent
     );
+// Count events
+router.route('/events/count')
+    .get(
+        countEvents
+    );
 
+// Getrecentevents
+router.route('/events/recent')
+    .get(
+        getRecentEvents
+    );// Example: /events/recent?limit=5 
+
+// gettodayevents
+router.route('/events/today')
+    .get(
+        getTodayEvents
+    );
+
+//geteventbetweendates
+router.route('/events/between')
+    .get(
+        getEventsBetweenDates
+    );
+    
+//archives
+router.route('/events/archiveExpired')
+    .put(
+        archiveExpiredEvents
+    );
+
+//getarchives
+router.route('/events/archived')
+    .get(
+        getArchivedEvents
+    );
+
+//favoris 
+router.route('/event/favoris/:id')
+    .put(
+        toggleFavoris
+    );
+//addReservationToEvent
+router.route('/events/:eventId/reservations')
+    .post(
+        addReservationToEvent
+    );
+//getReservationsByEvent
+router.route('/events/:eventId/reservations')
+    .get(
+        getReservationsByEvent
+    );
+
+
+router.post('/events/:eventId/reservations', addReservationToEvent);
+router.get('/events/:eventId/reservations', getReservationsByEvent);
 export default router;
