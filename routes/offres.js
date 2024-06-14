@@ -8,12 +8,12 @@ const typeOffreValues = ['Maison dhote', 'Villa', 'Appartement', 'Hotels', 'voit
 
 // Route pour ajouter une nouvelle offr
 router.post('/add', [
-    body('titre'),
-    body('description'),
-    body('date_debut'),
-    body('date_fin'),
-    body('disponibilite'),
-    body('image'),
+    body('titre').isLength({ min: 3 }).withMessage('Le titre doit contenir au moins 3 caractères'),
+    body('description').isLength({ min: 5 }).withMessage('La description doit contenir au moins 5 caractères'),
+    body('date_debut').isISO8601().withMessage('La date de début doit être une date valide'),
+    body('date_fin').isISO8601().withMessage('La date de fin doit être une date valide'),
+    body('disponibilite').notEmpty().withMessage('La disponibilité ne doit pas être vide'),
+    body('image').optional().notEmpty().withMessage('L\'image ne doit pas être vide'),
     body('prix'),
     body('type_offre').custom(value => {
         if (!typeOffreValues.includes(value)) {
@@ -30,11 +30,11 @@ router.get('/getoffre/:id', getOffre);
 
 // Route pour mettre à jour une offre par son ID
 router.put('/updateoffre/:id', [
-    body('titre'),
-    body('description'),
-    body('date_debut'),
-    body('date_fin'),
-    body('disponibilite'),
+    body('titre').optional().isLength({ min: 3 }).withMessage('Le titre doit contenir au moins 3 caractères'),
+    body('description').optional().isLength({ min: 5 }).withMessage('La description doit contenir au moins 5 caractères'),
+    body('date_debut').optional().isISO8601().withMessage('La date de début doit être une date valide'),
+    body('date_fin').optional().isISO8601().withMessage('La date de fin doit être une date valide'),
+    body('disponibilite').optional().notEmpty().withMessage('La disponibilité ne doit pas être vide'),
     body('image'),
     body('prix'),
     body('type_offre').optional().custom(value => {

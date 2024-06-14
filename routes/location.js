@@ -6,14 +6,14 @@ const router = express.Router();
 
 // Route pour ajouter une nouvelle location
 router.post('/addlocation', [
-    body('Num_Contrat'),
-    body('titre'),
-    body('Duree'),
-    body('prix'),
-    body('emplacement'),
+    body('Num_Contrat').isNumeric().withMessage('Le numéro de contrat doit être un nombre'),
+    body('titre').isLength({ min: 5 }).withMessage('Le titre doit contenir au moins 5 caractères'),
+    body('Duree').isNumeric().withMessage('La durée doit être un nombre'),
+    body('prix').isNumeric().withMessage('Le prix doit être un nombre'),
+    body('emplacement').isLength({ min: 1 }).withMessage('L\'emplacement est requis'),
     body('Longitude'),
-    body('latitude'),
-    body('etat')
+    body('largitude'),
+    body('etat').isLength({ min: 1 }).withMessage('L\'état est requis')
 ], addLocation);
 
 // Route pour obtenir une location par ID
@@ -24,14 +24,14 @@ router.get('/listedeslocation/', getAllLocations);
 
 // Route pour mettre à jour une location
 router.put('/modifierlocation/:id', [
-    body('Num_Contrat'),
-    body('titre'),
-    body('Duree'),
-    body('prix'),
-    body('emplacement'),
+    body('Num_Contrat').optional().isNumeric().withMessage('Le numéro de contrat doit être un nombre'),
+    body('titre').optional().isLength({ min: 5 }).withMessage('Le titre doit contenir au moins 5 caractères'),
+    body('Duree').optional().isNumeric().withMessage('La durée doit être un nombre'),
+    body('prix').optional().isNumeric().withMessage('Le prix doit être un nombre'),
+    body('emplacement').optional().isLength({ min: 1 }).withMessage('L\'emplacement est requis'),
     body('Longitude'),
-    body('latitude'),
-    body('etat')
+    body('largitude'),
+    body('etat').optional().isLength({ min: 1 }).withMessage('L\'état est requis')
 ], updateLocation);
 
 // Route pour supprimer une location
