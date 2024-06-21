@@ -1,0 +1,119 @@
+<div class="container mt-4">
+  <h2 class="my-4 text-center" style="color: #0594D0;">Gestion des Produits</h2>
+
+  <div class="row justify-content-center">
+    <!-- Formulaire pour ajouter/modifier un produit -->
+    <div class="col-md-6">
+      <div class="border p-3 rounded">
+        <form class="needs-validation" (ngSubmit)="editIndex !== null ? updateProduct() : addProduct()" novalidate>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="nomP" class="small">Nom:</label>
+              <input type="text" name="nomP" class="form-control border-primary" id="nomP" placeholder="Nom" [(ngModel)]="newProduct.nomP" required>
+              <div class="valid-feedback">Valid name!</div>
+              <div class="invalid-feedback">Merci d'entrer un nom valide.</div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="prix" class="small">Prix:</label>
+              <input type="number" name="prix" class="form-control border-primary" id="prix" placeholder="Prix" [(ngModel)]="newProduct.prix" required>
+              <div class="valid-feedback">Valid price!</div>
+              <div class="invalid-feedback">Veuillez saisir un prix valide.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="descriptionP" class="small">Description:</label>
+            <textarea name="descriptionP" class="form-control border-primary" id="descriptionP" rows="2" placeholder="Description" [(ngModel)]="newProduct.descriptionP" required></textarea>
+            <div class="valid-feedback">Valid description!</div>
+            <div class="invalid-feedback">Veuillez saisir une description valide.</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="Qt" class="small">Quantité:</label>
+              <input type="number" name="Qt" class="form-control border-primary" id="Qt" placeholder="Quantité" [(ngModel)]="newProduct.Qt" required>
+              <div class="valid-feedback">Valid quantity!</div>
+              <div class="invalid-feedback">Veuillez entrer une quantité valide.</div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="stock" class="small">Stock:</label>
+              <input type="number" name="stock" class="form-control border-primary" id="stock" placeholder="Stock" [(ngModel)]="newProduct.stock" required>
+              <div class="valid-feedback">Valid stock!</div>
+              <div class="invalid-feedback">Veuillez saisir un stock valide.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="image" class="small">Image:</label>
+            <input type="file" class="form-control border-primary" id="image" accept="image/*" (change)="handleImageUpload($event)" required>
+            <div class="valid-feedback">Valid image!</div>
+            <div class="invalid-feedback">Veuillez télécharger une image valide.</div>
+          </div>
+
+          <div class="form-group">
+              <label class="small">Statut:</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="statusP" id="actif" value="true" [(ngModel)]="newProduct.statusP" required>
+                <label class="form-check-label" for="actif">Actif</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="statusP" id="inactif" value="false" [(ngModel)]="newProduct.statusP" required>
+                <label class="form-check-label" for="inactif">Inactif</label>
+              </div>
+              <div class="invalid-feedback">Veuillez sélectionner un statut.</div>
+            </div>
+            
+            <div class="form-group">
+              <label for="categorie" class="small">Catégorie:</label>
+              <input type="text" name="categorie" class="form-control border-primary" id="categorie" placeholder="Catégorie" [(ngModel)]="newProduct.categorie">
+              <div class="valid-feedback">Valid category!</div>
+              <div class="invalid-feedback">Veuillez entrer une catégorie valide.</div>
+            </div>
+          
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-sm" style="background-color: #0594D0; border-color: #0594D0;">{{ editIndex !== null ? 'Modifier Produit' : 'Ajouter Produit' }}</button>
+            <button type="button" class="btn btn-secondary btn-sm" (click)="resetForm()">Annuler</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tableau pour lister les produits -->
+    <div class="col-md-12 mt-4">
+      <div class="border p-3 rounded" >
+        <table  class="table table-sm table-bordered table-striped"  >
+          <thead style="background-color: #bfa0e7; color: rgb(15, 10, 10)">
+            <tr>
+              <th class="small" ><B>Nom</B></th>
+              <th class="small"><B>Description</B></th>
+              <th class="small"><B>Prix</B></th>
+              <th class="small"><B>Quantité</B></th>
+              <th class="small"><B>Stock</B></th>
+              <th class="small"><B>Statut</B></th>
+              <th class="small"><B>Catégorie</B></th>
+              <th class="small"><B>Actions</B></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products; let i = index">
+              <td class="small">{{ product.nomP }}</td>
+              <td class="small">{{ product.descriptionP }}</td>
+              <td class="small">{{ product.prix }}</td>
+              <td class="small">{{ product.Qt }}</td>
+              <td class="small">{{ product.stock }}</td>
+              <td class="small">{{ product.statusP ? 'Actif' : 'Inactif' }}</td>
+              <td class="small">{{ product.categorie }}</td>
+              <td class="small">
+                <input type="image" name="modifier "src="assets/img/update2.svg" height="23" width="23" style="margin-right: 10px;"(click)="setEditMode(i)">
+
+                <input type="image" name="supprimer "src="assets/img/supprimer.svg" height="23" width="23" (click)="deleteProduct(i)">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

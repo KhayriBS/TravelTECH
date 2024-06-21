@@ -28,7 +28,7 @@ const db_url =process.env.DB_URL ||"mongodb://127.0.0.1:27017"
 mongoose.connect(`${db_url}/${databasename}`)
 .then(() => {
     console.log("__ Database connected __");
-}.catch((err) => {
+}).catch((err) => {
     console.error(`Failed to connect to database: ${err}`);
 });
 
