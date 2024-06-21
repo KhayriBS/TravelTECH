@@ -1,0 +1,80 @@
+<div class="container mt-4">
+    <h2 class="my-4 text-center" style="color: #0594D0;">Gestion des Catégories</h2>
+  
+    <div class="row justify-content-center">
+      <!-- Formulaire pour ajouter/modifier une catégorie -->
+      <div class="col-md-6">
+        <div class="border p-3 rounded">
+          <form class="needs-validation" (ngSubmit)="editIndex !== null ? updateCategorie() : addCategorie()" novalidate>
+            <div class="form-group">
+              <label for="nomC" class="small">Nom:</label>
+              <input type="text" name="nomC" class="form-control border-primary" id="nomC" placeholder="Nom" [(ngModel)]="newCategorie.nomC" required>
+              <div class="valid-feedback">Nom valide!</div>
+              <div class="invalid-feedback">Merci d'entrer un nom valide.</div>
+            </div>
+  
+            <div class="form-group">
+              <label for="descriptionC" class="small">Description:</label>
+              <textarea name="descriptionC" class="form-control border-primary" id="descriptionC" rows="2" placeholder="Description" [(ngModel)]="newCategorie.descriptionC" required></textarea>
+              <div class="valid-feedback">Description valide!</div>
+              <div class="invalid-feedback">Veuillez saisir une description valide.</div>
+            </div>
+  
+            <div class="form-group">
+              <label for="nbrProduit" class="small">Nombre de produits:</label>
+              <input type="number" name="nbrProduit" class="form-control border-primary" id="nbrProduit" placeholder="Nombre de produits" [(ngModel)]="newCategorie.nbrProduit" required>
+              <div class="valid-feedback">Nombre de produits valide!</div>
+              <div class="invalid-feedback">Veuillez entrer un nombre de produits valide.</div>
+            </div>
+  
+            <div class="form-group">
+              <label class="small">Statut:</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="statusC" id="actifC" value="true" [(ngModel)]="newCategorie.statusC" required>
+                <label class="form-check-label" for="actifC">Actif</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="statusC" id="inactifC" value="false" [(ngModel)]="newCategorie.statusC" required>
+                <label class="form-check-label" for="inactifC">Inactif</label>
+              </div>
+              <div class="invalid-feedback">Veuillez sélectionner un statut.</div>
+            </div>
+  
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-sm" style="background-color: #0594D0; border-color: #0594D0;">{{ editIndex !== null ? 'Modifier Catégorie' : 'Ajouter Catégorie' }}</button>
+              <button type="button" class="btn btn-secondary btn-sm" (click)="resetForm()">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <!-- Tableau pour lister les catégories -->
+      <div class="col-md-12 mt-4">
+        <div class="border p-3 rounded">
+          <table class="table table-sm table-bordered table-striped">
+            <thead style="background-color: #bfa0e7; color: rgb(15, 10, 10)">
+              <tr>
+                <th class="small"><B>Nom</B></th>
+                <th class="small"><B>Description</B></th>
+                <th class="small"><B>Nombre de produits</B></th>
+                <th class="small"><B>Statut</B></th>
+                <th class="small"><B>Actions</B></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let categorie of categories; let i = index">
+                <td class="small">{{ categorie.nomC }}</td>
+                <td class="small">{{ categorie.descriptionC }}</td>
+                <td class="small">{{ categorie.nbrProduit }}</td>
+                <td class="small">{{ categorie.statusC ? 'Actif' : 'Inactif' }}</td>
+                <td class="small">
+                  <input type="image" src="assets/img/update2.svg" height="23" width="23" style="margin-right: 10px;" (click)="setEditMode(i)">
+                  <input type="image" src="assets/img/supprimer.svg" height="23" width="23" (click)="deleteCategorie(i)">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

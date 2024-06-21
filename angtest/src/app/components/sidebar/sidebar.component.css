@@ -1,0 +1,39 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 260px; /* Vous pouvez ajuster cette largeur selon vos besoins */
+    background-size: cover;
+    background-position: center;
+    z-index: 1000; /* Assurez-vous qu'il reste au-dessus du contenu principal */
+}
+
+.sidebar .sidebar-wrapper {
+    overflow: auto; /* Permet à la barre latérale de défiler si le contenu dépasse la hauteur de l'écran */
+    height: 100%;
+}
+
+.sidebar .nav {
+    padding-top: 20px; /* Ajustez le rembourrage selon vos besoins */
+}
+
+.sidebar .nav-item {
+    margin-bottom: 10px; /* Ajustez l'espacement entre les éléments du menu */
+}
+
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: #fff; /* Couleur du texte */
+    text-decoration: none; /* Enlever la soulignement des liens */
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Changement de couleur au survol */
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+}
